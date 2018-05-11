@@ -28,10 +28,10 @@ $("#submit-button").on("click", function (event) {
         alert("NERD");
     }
 
-    console.log(name);
-    console.log(destination);
-    console.log(firstTime);
-    console.log(frequency);
+    // console.log(name);
+    // console.log(destination);
+    // console.log(firstTime);
+    // console.log(frequency);
 
     database.ref().push({
         name: name,
@@ -51,29 +51,48 @@ database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val().destination);
     console.log(childSnapshot.val().firstTime);
     console.log(childSnapshot.val().frequency);  
+    
+    var tFrequency = childSnapshot.val().frequency;
+    console.log(tFrequency);
+
+    // Time is 3:30 AM
+    var tFirstTime = childSnapshot.val().firstTime;
+    console.log(tFirstTime);
+
+    var tFirstTimeConverted = moment(tFirstTime, "HH:mm").subtract(1, "years");
+    console.log(tFirstTimeConverted);
+
+    // Current Time
+    var currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+    // Difference between the times
+    var diffTime = moment().diff(moment(tFirstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + diffTime);
+
+    // Time apart (remainder)
+    var tRemainder = diffTime % tFrequency;
+    console.log(tRemainder);
+
+    // Minute Until Train
+    var tMinutesTillTrain = tFrequency - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    // Next Train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
+
+    var nextArrival = moment(nextTrain).format("HH:mm");
+
+
 
     $("#table-data").append("<tr><td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().destination + "</td>" + "<td>" + childSnapshot.val().frequency + "</td>" + "<td>" + nextArrival + "</td>" + "<td>" + tMinutesTillTrain + "</td></tr>");
 });
 
-var firstTimeConverted = moment(firstTime, "hh:mm");
-console.log(firstTimeConverted);
 
-var currentTime = moment();
-console.log(moment(currentTime).format("hh:mm"));
 
-var diffTime = moment().diff(moment(firstTime, "minutes"));
-console.log(diffTime);
 
-var tRemainder = diffTime % frequency;
-console.log(tRemainder);
 
-var tMinutesTillTrain = frequency - tRemainder;
-console.log(tMinutesTillTrain);
-
-var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-console.log(moment(nextTrain).format("hh:mm"));
-
-var nextArrival = moment.unix(nextTrain).format("hh:mm");
 
 
 
