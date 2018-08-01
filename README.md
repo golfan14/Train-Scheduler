@@ -1,1 +1,2 @@
 # Train-Scheduler
+This application uses Javascript, jQuery, Google Firebase, and Moment.js to create a train schedule based on user input.  Enter the name of the train, the destination, the time the first train departs, and how often the train comes.  The application will display the time that the next train is coming and how many minutes there are until the next train comes.  Try it out for yourself!
