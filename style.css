@@ -1,8 +1,22 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(trainstation.jpg);
+    background-size: cover;
+    background-position: center;
+}
 
+strong {
+    font-size: 120%;
+}
+
+.jumbotron {
+    background: none;
+    text-align: center;
+}
 
 h2 {
     color: #5cb85c;
 }
+
 
 
 
